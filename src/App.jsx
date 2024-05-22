@@ -1,13 +1,28 @@
-import React from "react";
-import BoxContainer from "./components/BoxContainer";
+import React, { useState, useEffect } from "react";
+import TextInput from "./components/TextInput";
 
 function App() {
-  // Box 를 클릭하면 해당 Box만 파란색이 되도록 해야 합니다. components/ 안의 컴포넌트들안에서 TODO를 확인하세요.
-  // TODO: GlobalStyle 컴포넌트를 만들고 styled-reset 패키지로 스타일 초기화하고 App 컴포넌트에 적용해 보세요.
+  // TODO: 로컬 스토리지에서 초기 상태로 사용할 값을 가져오세요. 새로고침 해도 기존 상태를 유지하는 것이 목적입니다.
+  // 로컬스토리지에 값이 없을 경우 빈배열[] 로 설정하세요.
+  const [texts, setTexts] = useState([]);
+
+  useEffect(() => {
+    // TODO: 상태가 변경될 때마다 로컬 스토리지에 저장. key 값은 texts 로 합시다.
+  }, [texts]);
+
+  const onAddText = (text) => {
+    setTexts((prevTexts) => [...prevTexts, text]);
+  };
+
   return (
     <div>
-      <h1>Clickable Boxes</h1>
-      <BoxContainer />
+      <h1>Text Input and Listing</h1>
+      <TextInput onAddText={onAddText} />
+      <ul>
+        {texts.map((text, index) => (
+          <li key={index}>{text}</li>
+        ))}
+      </ul>
     </div>
   );
 }
